@@ -1,0 +1,11 @@
+{
+  "name": "arogayadoot",
+  "version": "1.0.0",
+  "description": "this is online booking website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "\"Adarsh Raj\"",
+  "license": "ISC"
+}
