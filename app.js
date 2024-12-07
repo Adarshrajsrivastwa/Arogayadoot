@@ -2,8 +2,10 @@ let express= require('express');
 let mongoose= require('mongoose');
 const path = require('path');
 let dotenv = require('dotenv');
+let connectdb= require('./config/db.js');
 
 dotenv.config();
+connectdb();
 
 PORT=3000;
 
