@@ -4,6 +4,7 @@ const path = require('path');
 let dotenv = require('dotenv');
 let connectdb= require('./config/db.js');
 let userauth = require('./route/userauth.js');
+let doctorauth = require('./route/doctorauth.js');
 let session= require('express-session');
 let passport= require('passport');
 let cors= require('cors');
@@ -11,6 +12,8 @@ let bcrypt= require('bcrypt');
 let jwt = require("jsonwebtoken");
 let User= require('./models/user');
 const cookieParser = require('cookie-parser');
+const uploadRoutes = require("./route/doctorauth");
+const adminauth = require('./config/admin.js');
 
 
 dotenv.config();
@@ -45,8 +48,13 @@ app.use(cookieParser());
 
 app.use(cors());  
 
+// authantication
 app.use('/authuser', userauth);
-app.use('/authdoctor' ,doctorauth)
+app.use('/authdoctor', doctorauth)
+app.use('/adminauth', adminauth)
+
+
+
 
 app.get('/',(req, res) => {
     res.send("welcome to my website");
