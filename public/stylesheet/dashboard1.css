@@ -1,0 +1,175 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    height: auto;
+    width: 100vw;
+    background-color: #FEE5E5;
+    display: flex;
+}
+
+.left{
+    height: 100vh;
+    width:20vw;
+    background-color:#FFF8F9;
+}
+
+.logocontainer{
+    display: flex;
+    height: auto;
+    width: 20vw;
+    /* background-color: blue; */
+}
+
+.logo{
+    height: 15vh;
+    width: 15vh;
+}
+
+.logotext{
+    height: 7vh;
+    width: auto;
+    margin-top: 3vh;
+}
+
+.welcome{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FF788D;
+    font-size: 10px;
+}
+
+.nav{
+    display: flex;
+    height: auto;
+    width: 100%;
+    flex-direction: column;
+}
+
+.navoption{
+    height: 5vh;
+    width: 20vw;
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    padding-left: 3vw;
+    margin-top: 2vh;
+    color: #C4C4C4;
+}
+
+a{
+    text-decoration: none;
+    color:#C4C4C4;
+}
+
+
+.logout{
+    margin-top: 10vh;
+    display: flex;
+    padding-left: 5vh;
+    }
+
+    .box{
+        display: flex;
+        width: 60vw;
+        height: auto;
+        background-color: #FFFFFF;
+        margin-left: 20vh;
+        margin-top: 5vh;
+        align-items: center;
+    }
+
+    .first,.third{
+        width: 15vw;
+        /* background-color: aqua; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .photobox{
+        height: 20vh;
+        width: 20vh;
+        border-radius: 50%;
+        background-color: blueviolet;
+    }
+    
+    .second{
+        width: 40vw;
+        /* background-color: blue; */
+        display: flex;
+        flex-direction: column;
+    }
+    .btn{
+        height: 5vh;
+        width: 7vw;
+        border-radius: 5vh;
+        background-color: #27A4FF;
+    }
+
+    .second h1{
+        font-size: 5vh;
+        margin-bottom: 2vh;
+    }
+
+    .second h2{
+        font-size:2.5vh;
+    }
+
+    .nav1{
+        display: flex;
+        height: 10vh;
+        width: 75vw;
+        padding-left: 10vw;
+        align-items: center;  
+        justify-content: space-between;
+        padding-right: 5vw;
+      }
+
+      .searchbox{
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .search{
+        height: 5vh;
+        width: 20vw;
+        border-top-left-radius: 5vh;
+        border-bottom-left-radius: 5vh;
+        border: none;
+        display: flex;
+        padding-left: 2vw;
+       
+      }
+
+      .searchicon{
+        height: 5vh;
+        width: 5vh;
+        display: flex;
+        border-top-right-radius: 5vh;
+        border-bottom-right-radius: 5vh;
+        background-color: white;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .searchimg{
+        height: 3vh;
+        width: 3vh;
+        }      
+
+       .profilebox{
+        height: 5vh;
+        width: 5vh;
+       } 
+
+       .profile{
+        height: 5vh;
+        width: 5vh;
+       }
+
+

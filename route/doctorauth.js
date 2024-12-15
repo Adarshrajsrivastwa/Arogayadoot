@@ -47,34 +47,49 @@ route.post('/register', upload.single('certificate'), async (req, res) => {
   }
 });
 
+route.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    
+    // Find the user by either username (email) or phone
+    const user = await usermodels.findOne({
+      $or: [{ username: username }, { phone: username }]  // Username can be either email or phone
+    });
 
-  route.post("/login", async (req, res) => {
-    try {
-      const { username, password } = req.body;
-      const user = await usermodels.findOne($or[{ username:email },{username:phone}]);
-
-      if(user.status ==="pending"){
-        return res.status(401).json({ error: "Doctor is not yet approved by admin." });  // Send error message if doctor's status is pending.  // This should be replaced with an email or notification system.  // In a real-world application, the admin approval status should be stored in a separate database table.  // And the admin approval status should be fetched and checked before allowing the login.  // In this case, we are assuming that the admin approval status is stored in the database and we are using the provided email or phone number for login.  // In a real-world application, you should fetch the admin approval status from the database.  // The admin approval status should be stored in a separate database table and checked before allowing the login.  // In this case, we are assuming that the admin approval status is stored in the database and we are using the provided email or phone number for login.  // In a real-world
-      }
-      if (!user) {
-        return res.status(404).send("Doctor not found");
-      }
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).send("Invalid credentials");
-      }
-      const token = jwt.sign(
-        { username: user.username, password: user.password },
-        process.env.JWT_TOKEN, 
-        { expiresIn: "1h" }
-      );
-      res.cookie("token", token, { httpOnly: true });
-      res.status(200).redirect("/");
-    } catch (error) {
-      console.error("Error during login:", error.message);
-      res.status(500).send("An error occurred while processing your request");
+    if (!user) {
+      return res.status(404).send("Doctor not found");
     }
-  });
+
+    // Check if the doctor's status is 'pending'
+    if (user.status === "pending") {
+      return res.status(401).send("Doctor is not yet approved by admin.");
+    }
+
+    // Compare the password with the stored hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).send("Invalid credentials");
+    }
+
+    // Generate the JWT token with the relevant user details
+    const token = jwt.sign(
+      { username: user.username, email: user.email, id: user._id },  // Use relevant details in the payload
+      process.env.JWT_TOKEN,  // Make sure the secret key is in your .env file
+      { expiresIn: "1h" }
+    );
+
+    // Send the token as a cookie (httpOnly for security)
+    res.cookie("token", token, { httpOnly: true });
+
+    // Redirect after successful login
+    res.status(200).redirect("/");
+
+  } catch (error) {
+    console.error("Error during login:", error.message);
+    res.status(500).send("An error occurred while processing your request");
+  }
+});
+
 
 
 

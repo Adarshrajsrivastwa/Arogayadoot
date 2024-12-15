@@ -9,7 +9,8 @@ let adminSchema=new mongoose.Schema({
     },
     adminid:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 })
 
