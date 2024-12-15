@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./stylesheet/login.css">
+</head>
+<body>
+    <div class="container">
+    <div class="left">
+        <div class="logocontainer">
+            <img class="logo" src="./image/logo.png">
+    
+        </div>
+        <h1 class="welcome">Welcome You </h1>
+        <select class="login">
+            <option value="#">Login as</option>
+            <option value="/uslogin">Patient</option>
+            <option value="/doclogin">Doctor</option>
+            <option value="/adlogin">Admin</option>
+        </select>
+        <h4 class="dont">Don’t have an account ?<a href="/sign"> Sign up<a></a></h4>
+    </div>
+    <div class="right">
+        <img class="pic" src="./image/right.jpeg">
+    </div>
+    </div>
+    <script>
+        document.querySelector('.login').addEventListener('change', function() {
+            const selectedValue = this.value;
+            if (selectedValue === "/uslogin") {
+                window.location.href = selectedValue;
+            }
+            else if (selectedValue === "/doclogin") {
+                window.location.href = selectedValue;
+            }
+            else if (selectedValue === "/adlogin") {
+                window.location.href = selectedValue;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -12,7 +12,7 @@ const upload=require('../config/multer');
 route.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await usermodels.findOne({ username :id});
+    const user = await usermodels.findOne({ username :adminid});
     if (!user) {
       return res.status(404).send("User not found");
     }
@@ -20,12 +20,8 @@ route.post("/login", async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).send("Invalid credentials");
     }
-    const token = jwt.sign(
-      { username: user.username, password: user.password },
-      process.env.JWT_TOKEN, 
-      { expiresIn: "1h" }
-    );
-    res.cookie("token", token, { httpOnly: true });
+   const token = jwt.sign({ username }, process.env.JWT_TOKEN);
+       res.cookie("token", token, { httpOnly: true, secure: true });
     res.status(200).redirect("/");
   } catch (error) {
     console.error("Error during login:", error.message);
@@ -33,4 +29,4 @@ route.post("/login", async (req, res) => {
   }
 });
 
-module.exports =route
+module.exports =route;

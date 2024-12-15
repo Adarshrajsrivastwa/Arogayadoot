@@ -3,18 +3,14 @@ let connectdb= require('../config/db');
 const { model } = mongoose; 
 
 let adminSchema=new mongoose.Schema({
-    username:{
-        type:String,
-        required: true,
-        unique: true
-    },
     password:{
         type:String,
         required: true
     },
-    id:{
+    adminid:{
         type: String,
         required: true
     }
-    
 })
+
+module.exports = model ('admin',adminSchema);

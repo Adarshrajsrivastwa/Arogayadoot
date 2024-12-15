@@ -1,45 +1,36 @@
-let mongoose= require('mongoose');
-let express= require('express');
-let bcrypt= require('bcrypt');
-let jwt = require("jsonwebtoken");
-let usermodels=require('../models/doctor');
-const multer= require('multer');
-let route= express();
-const path = require("path");
+const multer = require('multer');
+const path = require('path');
 
-
-// Multer disk storage setup
+// Set up storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Set the upload folder
-    cb(null, "uploads/");
+    cb(null, path.join(__dirname, '..', 'upload')); // Ensure the 'upload' folder exists
   },
   filename: (req, file, cb) => {
-    // Set the file name
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, Date.now() + path.extname(file.originalname)); // Use a unique filename
   },
 });
 
-// File filter
+// File type filter (only allow certain types of files)
 const fileFilter = (req, file, cb) => {
-  const allowedFileTypes = /jpeg|jpg|png|gif/;
-  const extName = allowedFileTypes.test(
-    path.extname(file.originalname).toLowerCase()
-  );
-  const mimeType = allowedFileTypes.test(file.mimetype);
+  const allowedTypes = [
+    'application/pdf', // PDF
+    'image/jpeg',       // JPG, JPEG
+    'image/png',        // PNG
+  ];
 
-  if (extName && mimeType) {
-    cb(null, true);
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true); // Accept file
   } else {
-    cb(new Error("Only images are allowed"));
+    cb(new Error('Only PDF, JPG, PNG, and JPEG files are allowed'), false); // Reject file
   }
 };
 
 // Initialize multer
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 },
   fileFilter: fileFilter,
+  limits: { fileSize: 10 * 1024 * 1024 }, // Optional: limit file size (10MB)
 });
 
 module.exports = upload;

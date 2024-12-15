@@ -13,7 +13,7 @@ let jwt = require("jsonwebtoken");
 let User= require('./models/user');
 const cookieParser = require('cookie-parser');
 const uploadRoutes = require("./route/doctorauth");
-const adminauth = require('./config/admin.js');
+const adminauth = require('./route/adminauth');
 
 
 dotenv.config();
@@ -53,12 +53,37 @@ app.use('/authuser', userauth);
 app.use('/authdoctor', doctorauth)
 app.use('/adminauth', adminauth)
 
-
-
-
 app.get('/',(req, res) => {
-    res.send("welcome to my website");
+  res.render('login');
 })
+
+app.get('/patient',(req, res) => {
+  res.render('patientsignup');
+})
+
+app.get('/doctor',(req, res) => {
+  res.render('doctor');
+})
+
+app.get('/userlogin',(req, res) => {
+  res.render('userlogin');
+});
+
+app.get('/doclogin',(req, res) => {
+    res.render('logindoctor');
+  });
+
+  app.get('/adlogin',(req, res) => {
+    res.render('loginadmin');
+  });
+
+  app.get('/uslogin',(req, res) => {
+    res.render('userlogin');
+  });
+
+app.get('/sign',(req, res) => {
+  res.render('signup');
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

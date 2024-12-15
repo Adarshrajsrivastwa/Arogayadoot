@@ -10,42 +10,43 @@ const upload=require('../config/multer');
 
 
 route.post('/register', upload.single('certificate'), async (req, res) => {
-    try {
-      const { name, phone, email, specialization, password } = req.body;
-      const certificate = req.file.path; 
-  
-      // Validate inputs
-      if (!name || !phone || !email || !specialization || !password) {
-        return res.status(400).json({ error: "All fields are required" });
-      }
-  
-      // Check if a file was uploaded
-      if (!req.file) {
-        return res.status(400).json({ error: "Please upload a PDF certificate" });
-      }
+  try {
+    const { name, phone, email, specialization, password } = req.body;
 
-        const salt = await bcrypt.genSalt(10);
-          const hash = await bcrypt.hash(password, salt);
-  
-      // Save doctor's data to the database
-      const doctor = new Doctor({
-        name,
-        phone,
-        email,
-        specialization,
-        certificate: req.file.path, // Store the path to the uploaded certificate PDF
-        password:hash,
-        status: 'pending', // Default status
-      });
-       const token = jwt.sign({ username, phone, dob }, process.env.JWT_TOKEN);
-        res.cookie("token", token, { httpOnly: true, secure: true });
-
-      res.status(201).json({ message: "Doctor registered successfully, waiting for admin approval." });
-    } catch (error) {
-      console.error('Error during registration:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    // Check if the file is uploaded
+    if (!req.file) {
+      return res.status(400).json({ error: "Please upload a valid certificate file (PDF, JPG, PNG, or JPEG)." });
     }
-  });
+
+    const certificate = req.file.path; // Path to the uploaded file
+
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    // Save doctor to the database
+    const doctor = new usermodels({
+      name,
+      phone,
+      email,
+      specialization,
+      certificate,
+      password: hash,
+      status: 'pending', // Default status
+    });
+    await doctor.save();
+
+    // Generate JWT token
+    const token = jwt.sign({ email, phone }, process.env.JWT_TOKEN);
+    res.cookie("token", token, { httpOnly: true, secure: true });
+
+    res.status(201).json({ message: "Doctor registered successfully, waiting for admin approval." });
+  } catch (error) {
+    console.error('Error during registration:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
   route.post("/login", async (req, res) => {
     try {
