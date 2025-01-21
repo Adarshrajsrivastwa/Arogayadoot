@@ -114,7 +114,6 @@ function displayDoctors(doctors) {
   });
 }
 
-// Update doctor status (approve/reject)
 async function updateStatus(id, status) {
   try {
     const response = await fetch(`http://localhost:3000/api/doctor/${id}`, {
@@ -132,7 +131,6 @@ async function updateStatus(id, status) {
   }
 }
 
-// Initial fetch when page loads
 window.onload = fetchDoctors;
     </script>
 </body>

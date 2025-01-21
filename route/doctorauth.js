@@ -11,7 +11,7 @@ const upload=require('../config/multer');
 
 route.post('/register', upload.single('certificate'), async (req, res) => {
   try {
-    const { name, phone, email, specialization, password } = req.body;
+    const { name, phone, email, specialization, password,hospital,charge } = req.body;
 
     // Check if the file is uploaded
     if (!req.file) {
@@ -30,8 +30,11 @@ route.post('/register', upload.single('certificate'), async (req, res) => {
       phone,
       email,
       specialization,
+      hospital,
       certificate,
       password: hash,
+      charge,
+      language:'Hindi,English',
       status: 'pending', // Default status
     });
     await doctor.save();

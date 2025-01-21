@@ -33,6 +33,18 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     default: 'pending',  // Default status
   },
+  hospital:{
+    type:String,
+    required: true,
+  },
+  language:{
+    type: String,
+    required: true,
+  },
+  charge:{
+    type: Number,
+    required: true,
+  }
 });
 
 module.exports = model ('doctor',doctorSchema);

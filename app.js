@@ -57,44 +57,6 @@ app.use('/authuser', userauth);
 app.use('/authdoctor', doctorauth)
 app.use('/adminauth', adminauth)
 
-
-// authantication
-// const authenticateToken = (req, res, next) => {
-//   const token = req.headers['authorization']; 
-//   console.log(token);
-
-//   if (!token) {
-//     return res.status(403).send('Token is required');
-//   }
-//   jwt.verify(token, 'process.env.JWT_TOKEN', (err, decoded) => {
-//     if (err) {
-//       return res.status(403).send('Invalid or expired token');
-//     }
-//     const email = decoded.email;
-//     req.userEmail = email;
-//     next();
-//   });
-// }
-
-// app.get('/details', authenticateToken, async (req, res) => {
-//   try {
-//     const username = req.user.email; 
-//     const user = await usermodels.findOne({ username:email });
-    
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-//     res.json({
-//       username: user.username,
-//       email: user.email,
-//       phone: user.phone,
-//       address: user.address,
-//       dob: user.dob
-//     });
-//   } catch (err) {
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,   // Your Razorpay Key ID
   key_secret: process.env.RAZORPAY_KEY_SECRET  // Your Razorpay Key Secret
@@ -102,19 +64,16 @@ const razorpay = new Razorpay({
 
 app.post('/create/orderId', async (req, res) => {
   const options = {
-    amount: 220* 100, // amount in smallest currency unit (200 INR in paise)
+    amount: 220* 100,
     currency: "INR",
   };
 
   try {
-    // Create the order via Razorpay API
     const order = await razorpay.orders.create(options); 
     res.send(order);
-
-    // Save the order details in the database
     await Payment.create({
       orderId: order.id,
-      amount: order.amount / 100, // Converting back to INR
+      amount: order.amount / 100, 
       currency: order.currency,
       status: 'pending',
     });
@@ -149,12 +108,18 @@ app.post('/api/payment/verify', async (req, res) => {
 
 app.get('/api/doctors', async (req, res) => {
   try {
-    // Ensure 'Doctor' model is used consistently
     const doctors = await Doctor.find({ status: 'pending' });
     res.json(doctors);
-    console.log(doctors);  // You can remove this in production for security reasons
   } catch (error) {
-    console.error(error);  // Log error for debugging
+    res.status(500).json({ message: 'Error fetching doctors' });
+  }
+});
+
+app.get('/api/doctor/confirm', async (req, res) => {
+  try {
+    const doctor = await Doctor.find({ status:'approved'});
+    res.json(doctor);
+  } catch (error) {
     res.status(500).json({ message: 'Error fetching doctors' });
   }
 });
