@@ -16,6 +16,7 @@ const uploadRoutes = require("./route/doctorauth");
 const adminauth = require('./route/adminauth');
 const Payment = require('./models/payment.js');
 const Razorpay = require('razorpay');
+const Doctor = require('./models/doctor.js');
 
 
 
@@ -28,8 +29,6 @@ PORT=3000;
 
 
 let app = express();
-
-
 
 
 app.use(cors());  
@@ -103,7 +102,7 @@ const razorpay = new Razorpay({
 
 app.post('/create/orderId', async (req, res) => {
   const options = {
-    amount: 500 * 100, // amount in smallest currency unit (200 INR in paise)
+    amount: 220* 100, // amount in smallest currency unit (200 INR in paise)
     currency: "INR",
   };
 
@@ -148,6 +147,43 @@ app.post('/api/payment/verify', async (req, res) => {
   }
 });
 
+app.get('/api/doctors', async (req, res) => {
+  try {
+    // Ensure 'Doctor' model is used consistently
+    const doctors = await Doctor.find({ status: 'pending' });
+    res.json(doctors);
+    console.log(doctors);  // You can remove this in production for security reasons
+  } catch (error) {
+    console.error(error);  // Log error for debugging
+    res.status(500).json({ message: 'Error fetching doctors' });
+  }
+});
+
+app.put('/api/doctor/:id', async (req, res) => {
+  const { status } = req.body;
+  
+  if (!status) {
+    return res.status(400).json({ message: 'Status is required to update the doctor' });
+  }
+
+  try {
+    // Check if doctor exists before attempting to update
+    const doctor = await Doctor.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    if (!doctor) {
+      return res.status(404).json({ message: 'Doctor not found' });
+    }
+
+    res.json(doctor);
+  } catch (error) {
+    console.error(error);  // Log error for debugging
+    res.status(500).json({ message: 'Error updating doctor status' });
+  }
+});
 
 app.get('/',(req, res) => {
   res.render('login');
@@ -185,6 +221,10 @@ app.get('/sign',(req, res) => {
 
 app.get('/dashboard',(req, res) => {
   res.render('dashboard1');
+})
+
+app.get('/dashboard1',(req, res) => {
+  res.render('dashboard2');
 })
 
 app.get('/form',(req, res) => {

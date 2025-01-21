@@ -3,6 +3,7 @@ let express= require('express');
 let bcrypt= require('bcrypt');
 let jwt = require("jsonwebtoken");
 let usermodels=require('../models/user.js');
+let doctor= require('../models/doctor.js');
 let route= express();
 
 route.post("/register", async (req, res) => {
@@ -78,7 +79,5 @@ route.post("/login", async (req, res) => {
     res.status(500).send("An error occurred while processing your request");
   }
 });
-
-// Route to get user details by username
 
   module.exports = route;

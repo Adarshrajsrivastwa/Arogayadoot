@@ -80,7 +80,9 @@ a{
         background-color: #FFFFFF;
         margin-left: 20vh;
         margin-top: 5vh;
-        align-items: center;
+        flex-direction: column;
+        padding-left: 10vw;
+        
     }
 
     .first,.third{
@@ -175,146 +177,8 @@ a{
        .btnbox{
         height: auto;
         width:30vw;
-        background-color: aqua;
-       }
-
-       .container1{
-        height: auto;
-        width: 80vw;
-        background-color: #FEE5E5;
         display: flex;
-        justify-content: space-around;
-        padding-top: 5vh;
+        justify-content: space-between;
        }
-
-       .info{
-        height: 15vh;
-        width: 70vw;
-        background-color: #FFFFFF;
-        display: flex;
-        align-items: center;
-        padding-top: 5vh;
-        padding-left: 5vw;
-        gap:1vw;
-       }
-
-       #name{
-        height:5vh;
-        width: 15vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #email{
-        height:5vh;
-        width: 15vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #phone{
-        height:5vh;
-        width: 15vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #dob{
-        height:5vh;
-        width: 15vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #height{
-        height:5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #weight{
-        height:5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #gender{
-        height:5vh;
-        width: 5vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #bloodgroup{
-        height:5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #address{
-        height:5vh;
-        width: 40vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-        padding-top: 0.5vh;
-       }
-
-       #city{
-        height:5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #state{
-        height:5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #country{
-        height:5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #zipcode{
-        height:5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       #issue{
-        height:5vh;
-        width: 40vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-        padding-top: 0.5vh;
-       }
-
-       #slot{
-        height:5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        padding-left: 1vw;
-       }
-
-       .btn1{
-        height: 5vh;
-        width: 10vw;
-        border-radius: 5vh;
-        background-color: #27A4FF;
-        color: white;
-        border: none;
-        cursor: pointer;
-        margin-left: 30vw;
-       }
-
 
 

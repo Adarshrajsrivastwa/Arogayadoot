@@ -4,12 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./stylesheet/dashboard1.css">
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
     rel="stylesheet"/>
 </head>
 <body>
-    <button class="payment" id="rzp-button1"></button>
+
+    <div class="container">
+        <div class="left">
+            <div class="logocontainer">
+                <img class="logo" src="./image/logoimg.png">
+                <img class="logotext" src="./image/logotext.png">
+            </div>
+
+            <div class="welcome">
+                <h1>welcome,Patient</h1>
+            </div>
+
+            <div class="nav">
+                <div class="navoption">
+                    <h3><a href="#">Dashboard</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Search Doctor</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Search Healthtip Category </a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Health Tips</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Lab Reports</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">My Treatment</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">My Transaction</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">My Wallet</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Help & Support</a></h3>
+                </div>
+            </div>
+
+            <div class="logout">
+                <a href="#">Log out</a>
+            </div>
+
+        </div>
+
+        <div class="right">
+            <div class="nav1">
+                <div class="searchbox">
+                    <input type="text" placeholder="Search" class="search">
+                <div class="searchicon">
+                    <img class="searchimg" src="./image/search.png">
+                </div>
+                </div>
+                <div class="profilebox">
+                    <img class="profile" src="./image/profile.png">
+                </div>
+            </div>
+
+            <div class="container1">
+                <form>
+                    <div class="info">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="phone">phone</label>
+                        <input type="text" id="phone" name="phone" required>
+                    </div>
+                    <div class="info">
+                        <label for="dob">DOB:</label>
+                        <input type="date" id="dob" name="dob" required>
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <label for="height">Height:</label>
+                        <input type="text" id="height" name="height" required>
+                        <label for="weight">Weight:</label>
+                        <input type="text" id="weight" name="weight" required>
+                    </div>
+                    <div class="info">
+                      
+                        <label for="bloodgroup">Blood Group:</label>
+                        <input type="text" id="bloodgroup" name="bloodgroup" required>
+                        <label for="address">Address:</label>
+                        <textarea id="address" name="address" required></textarea>
+                    </div>
+                    <div class="info">
+                  
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" required>
+                        <label for="state">State:</label>
+                        <input type="text" id="state" name="state" required>
+                        <label for="country">Country:</label>
+                        <input type="text" id="country" name="country" required>
+                        <label for="zipcode">Zip Code:</label>
+                        <input type="text" id="zipcode" name="zipcode" required>
+                    </div>
+                    <div class="info">
+                        <label for="issue">Issue</label>
+                        <input type="text" id="issue" name="issue" required>
+                        <label for="slot">Slot</label>
+                        <select id="slot">
+                            <option value="9:00-10:00">9:00-10:00</option>
+                            <option value="10:00-11:00">10:00-11:00</option>
+                            <option value="11:00-12:00">11:00-12:00</option>
+                            <option value="4:00-5:00">4:00-5:00</option>
+                            <option value="5:00-6:00">5:00-6:00</option>
+                            <option value="6:00-7:00">6:00-7:00</option>
+                        </select>
+                    </div> 
+                    <button type="button" id="rzp-button1" class="btn1">Pay now</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./javascript/dashboard1.js"></script>

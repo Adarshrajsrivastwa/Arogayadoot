@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./stylesheet/dashboard2.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="left">
+            <div class="logocontainer">
+                <img class="logo" src="./image/logoimg.png">
+                <img class="logotext" src="./image/logotext.png">
+            </div>
+
+            <div class="welcome">
+                <h1>welcome,Admin</h1>
+            </div>
+
+            <div class="nav">
+                <div class="navoption">
+                    <h3><a href="#">Dashboard</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Approve Doctor</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Manage Doctor</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Search Healthtip Category </a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Add Health Tips</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Manage Lab Reports</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Booking History</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Transaction</a></h3>
+                </div>
+
+                <div class="navoption">
+                    <h3><a href="#">Manage website</a></h3>
+                </div>
+
+
+            </div>
+
+            <div class="logout">
+                <a href="#">Log out</a>
+            </div>
+
+        </div>
+
+        <div class="right">
+          <div class="nav1">
+            <div class="searchbox">
+                <input type="text" placeholder="Search" class="search">
+            <div class="searchicon">
+                <img class="searchimg" src="./image/search.png">
+            </div>
+            </div>
+            <div class="profilebox">
+                <img class="profile" src="./image/profile.png">
+            </div>
+        </div>
+        <div class="details"></div>
+
+        </div>
+    </div>
+    <script>
+        async function fetchDoctors() {
+  try {
+    const response = await fetch('http://localhost:3000/api/doctors');
+    const doctors = await response.json();
+    displayDoctors(doctors);
+  } catch (error) {
+    console.error('Error fetching doctors:', error);
+  }
+}
+
+function displayDoctors(doctors) {
+  const container = document.querySelector('.details');
+  container.innerHTML = ''; 
+
+  doctors.forEach(doctor => {
+    const doctorCard = document.createElement('div');
+    doctorCard.classList.add('doctor-card');
+    doctorCard.classList.add('box');
+
+    doctorCard.innerHTML = `
+      <h3>${doctor.name}</h3>
+      <p><strong>Specialty:</strong> ${doctor.email}</p>
+      <p><strong>Contact:</strong> ${doctor.phone}</p>
+      <p><strong>Address:</strong> ${doctor.specialization}</p>
+      <p><strong>Experience:</strong> ${doctor.certificate} years</p>
+      <div class="btnbox"><button class="btn" onclick="updateStatus('${doctor._id}', 'approved')">Approve</button>
+      <button class="btn" onclick="updateStatus('${doctor._id}', 'rejected')">Reject</button></div>
+    `;
+    container.appendChild(doctorCard);
+  });
+}
+
+// Update doctor status (approve/reject)
+async function updateStatus(id, status) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/doctor/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status }),
+    });
+    const updatedDoctor = await response.json();
+    alert(`Doctor status updated to ${status}`);
+    fetchDoctors(); 
+  } catch (error) {
+    console.error('Error updating status:', error);
+  }
+}
+
+// Initial fetch when page loads
+window.onload = fetchDoctors;
+    </script>
+</body>
+</html>
